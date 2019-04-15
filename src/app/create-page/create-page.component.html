@@ -1,0 +1,29 @@
+<div class="jumbotron">
+    <h2>Add page</h2>
+      <form #pageForm="ngForm" (ngSubmit)="onSubmit()" style="max-width: 20rem;">
+       <!-- <div class="checker">
+        {{pageForm.value | json}}<br>
+        {{pageModel | json}}
+      </div>-->
+       <br>
+        <div class="form-group"> 
+          <label>Ordinal number</label> <br>
+          <input type="number" style="width: 4rem;" name="ordinalNumber" class="form-control" [(ngModel)]="pageModel.ordinalNumber">
+        </div>
+      
+        <div class="form-group">
+            <label>Content</label> <br>
+            <textarea class="form-control" rows="3" type="text" name="text" [(ngModel)]="pageModel.text"></textarea>
+        </div>
+        <div class="form-group" >
+              <label>Book: </label> <br>
+              <select  style="width: 10rem;" (change)="selected($event.target.value)"  [ngModel]="pageModel.book_id" name="book_id" required convert-to-number >
+                <option selected disabled>Select book</option>   
+                <option  *ngFor="let book of booksList" [value]="book.id" >{{book.title}}</option>
+              </select>
+        </div>
+
+        <button type="button" class="btn btn-secondary" routerLink="/pages">Back</button>
+        <button style="margin-left: 20px" class="btn btn-primary" type="submit"> Add page</button>
+      </form>
+</div>
