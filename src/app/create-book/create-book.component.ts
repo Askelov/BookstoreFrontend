@@ -7,6 +7,7 @@ import { IBook } from '../book';
 import { BookService } from '../book.service';
 import { Router } from '@angular/router';
 import {Location} from '@angular/common';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-book',
@@ -21,7 +22,7 @@ export class CreateBookComponent implements OnInit {
   authorList: IAuthor[] = [];
   authorsofBook:number[] = [];
 
-  constructor(private _authorService:AuthorService,private _location: Location, private router: Router, private _bookService:BookService) { }
+  constructor(private toastr: ToastrService,private _authorService:AuthorService,private _location: Location, private router: Router, private _bookService:BookService) { }
  //saljem za save
   bookModel=new IBook("","",this.authorsofBook,null);
   
@@ -40,8 +41,11 @@ selectedGenre(genre: string){
   onSubmit(){
     console.log(this.bookModel);
     this._bookService.save(this.bookModel)
-      .subscribe(data=>{this.oBook=data;})
-      this._location.back();
+      .subscribe(data=>{this.oBook=data;
+        this._location.back();
+        this.toastr.success("Successfully added");},
+        error => console.log('oops', error));
+     
     
   }
 

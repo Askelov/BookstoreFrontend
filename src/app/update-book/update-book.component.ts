@@ -44,4 +44,8 @@ public targetBook =new IBook("","",null,null);
       .subscribe(data=>{this.uBook=data;})
       this._location.back();
   }
+
+  setTitle(title: string){
+    this.bookToUpdate.title =title;
+  }
 }

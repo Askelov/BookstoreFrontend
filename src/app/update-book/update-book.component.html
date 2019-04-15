@@ -13,17 +13,16 @@
             {{bookToUpdate | json}}
               </div>
               <br>
-            
             <div class="form-group" >
               <label>Title of book</label> <br>
-              <input type="text"  class="form-control" placeholder="{{targetBook.title}}" name="title" [(ngModel)]="bookToUpdate.title">
+              <input type="text"  class="form-control"(onClick)="setTitle('asadas')" value="sdasa" placeholder="{{targetBook.title}}" 
+                 name="title" [(ngModel)]="bookToUpdate.title">
             </div>
             <div class="form-group">
               <label>Genre</label> <br>
-    
               <select style="width: 10rem;" (change)="selectedGenre($event.target.value)"  [ngModel]="bookToUpdate.genre" name="genre"  >
                   <option value="" disabled selected>Select a genre</option>  
-                <option  *ngFor="let genre of genres" [value]="genre" >{{genre}}</option>
+                  <option  *ngFor="let genre of genres" [value]="genre" >{{genre}}</option>
                 </select>
             </div>
             <button class="btn btn-secondary" (click)="gotoBook()"> Back </button>

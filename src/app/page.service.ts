@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IPage } from './page';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +22,5 @@ export class PageService {
   save(page: IPage): Observable<any>{
     return this.http.post(this._url,page);
   }
+  
 }

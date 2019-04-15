@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable} from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable,throwError } from 'rxjs';
 import { IAuthor } from './author';
+import { retry, catchError } from 'rxjs/operators';
+
 import { headersToString } from 'selenium-webdriver/http';
 import { isDefaultChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
@@ -20,7 +22,22 @@ export class AuthorService {
   }
 
   save(author: IAuthor): Observable<any>{
-    return this.http.post(this._url,author);
+    return this.http.post(this._url,author)
+    .pipe(
+      catchError(this.handleError)
+    );
+   
+  }
+
+  handleError(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: Author already exist`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
   }
 
   deleteAuthorById(id: number):Observable<{}>{

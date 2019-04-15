@@ -10,10 +10,12 @@ import { PageService } from './page.service';
 import { AppRoutingModule , routingComponents} from './app-routing.module';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { UpdateBookComponent } from './update-book/update-book.component';
-
-
-
+import { PopupModule} from 'ng2-opd-popup';
+import {  ToastrModule} from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Browser } from 'protractor';
 //obrisat 16lin
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,15 @@ import { UpdateBookComponent } from './update-book/update-book.component';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut:1000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: false,
+    }),
+   
   ],
   providers: [ AuthorService, BookService, PageService],
   bootstrap: [AppComponent]

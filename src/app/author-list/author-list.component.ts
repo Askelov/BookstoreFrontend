@@ -13,11 +13,11 @@ export class AuthorListComponent implements OnInit {
 
   ngOnInit() {
     this._authorService.getAuthors()
-       .subscribe(data => this.authors = data);
+      .subscribe(data => this.authors = data);
   }
   
   deleteAuthor(id:number){
-    this._authorService.deleteAuthorById(id).subscribe();
-    this.ngOnInit();
+    this._authorService.deleteAuthorById(id)
+     .subscribe(() => this.ngOnInit());
   }
 }

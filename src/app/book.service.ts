@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, from } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { IBook } from './book';
 import { updateBook } from './updateBook';
+import { retry, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,7 +25,10 @@ export class BookService {
   }
 
   save(book: IBook): Observable<any>{
-    return this.http.post(this._url,book);
+    return this.http.post(this._url,book)
+    .pipe(
+      catchError(this.handleError)
+    );
   }
  
   deleteBookById(id: number):Observable<{}>{
@@ -38,4 +42,15 @@ export class BookService {
     return this.http.put(this._url+"/"+id,bookToUpdate);
   }
 
+  handleError(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // error.status==400 || 200...
+       errorMessage = `Error Code: ${error.status}\nMessage: Book already exist`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
+  }
 }

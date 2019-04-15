@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthorService } from '../author.service';
 import { IAuthor } from '../author';
 import {Location} from '@angular/common';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-author',
@@ -10,24 +11,18 @@ import {Location} from '@angular/common';
 })
 export class CreateAuthorComponent {
  
-  
-  oAuthor:IAuthor;
-  
-  
-  constructor(private _authorService:AuthorService, private _location: Location) { }
+  constructor(private toastr: ToastrService,private _authorService:AuthorService, private _location: Location) { }
   authorModel= new IAuthor(null,'');
   
   onSubmit(){
 
       console.log(this.authorModel);
-    //var author1 = new IAuthor('ae');
     this._authorService.save(this.authorModel)
       .subscribe( 
-        data=>{
-          this.oAuthor=data;
-        }
-        )
-        this._location.back();
+        ()=> {this._location.back();
+               this.toastr.success("Successfully added");
+              },
+             error => console.log('oops', error));
   }
     
   }

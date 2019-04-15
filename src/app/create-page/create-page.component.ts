@@ -4,6 +4,7 @@ import { IBook } from '../book';
 import { BookService } from '../book.service';
 import { PageService } from '../page.service';
 import {Location} from '@angular/common';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-page',
@@ -15,7 +16,7 @@ export class CreatePageComponent implements OnInit {
   oPage:IPage;
   booksList: IBook[]=[];
 
-  constructor(private _location: Location, private _bookService: BookService, private _pageService: PageService) { }
+  constructor(private toastr: ToastrService,private _location: Location, private _bookService: BookService, private _pageService: PageService) { }
    pageModel=new IPage(0,"",null);
 
   ngOnInit() {
@@ -29,8 +30,10 @@ export class CreatePageComponent implements OnInit {
 onSubmit(){
   console.log(this.pageModel);
   this._pageService.save(this.pageModel)
-    .subscribe(data=>{this.oPage=data;})
-    this._location.back();
+    .subscribe(data=>{this.oPage=data;
+      this._location.back();
+      this.toastr.success("Successfully added");})
+  
 
 }
 

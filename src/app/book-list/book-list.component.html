@@ -4,7 +4,7 @@
   <button style="margin-left: 6rem"  class="btn btn-danger" (click)="deleteAllBooks()"> Delete all</button>
   <br><br>
   <div class="row">
-    <div class="col" *ngFor="let book of books">
+    <div class="col-md-auto" *ngFor="let book of books">
       <div class="card text-white bg-dark mb-3 " [class.selected]="isSelected(book)" style="width: 20rem; height: 12rem;" (click)="onSelect(book)" >
         <div class="card-header"  >
           <h5 >{{book.title}} 

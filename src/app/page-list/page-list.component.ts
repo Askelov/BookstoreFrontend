@@ -4,7 +4,7 @@ import { PageService } from '../page.service';
 @Component({
   selector: 'app-page-list',
   templateUrl: './page-list.component.html',
-  styleUrls: ['./page-list.component.css']
+  styles: ['./page-list.component.css']
 })
 export class PageListComponent implements OnInit {
 
@@ -15,5 +15,7 @@ export class PageListComponent implements OnInit {
     this._pageService.getPages()
        .subscribe(data => this.pages = data);
   }
+  
+
 
 }
