@@ -1,0 +1,31 @@
+
+<div class="jumbotron">
+  <h2>Add book</h2>
+  <form #bookForm="ngForm" style="max-width: 20rem;" (ngSubmit)="onSubmit()">
+     <div class="checker">
+      {{bookForm.value | json}} <br>
+      {{bookModel | json}}
+      </div>
+      <div class="form-group">
+          <label >Title of book</label>
+          <input  type="text" name="title" [(ngModel)]="bookModel.title" class="form-control"  placeholder="Title...">
+      </div>
+      <div class="form-group" >
+        <label>Genre</label> <br>
+        <select style="width: 10rem;" (change)="selectedGenre($event.target.value)"  [ngModel]="bookModel.genre" name="genre"  >
+          <option value="" disabled selected>Select a genre</option>
+          <option  *ngFor="let genre of genres" [value]="genre" >{{genre}}</option>
+        </select>
+      </div>
+      <div class="form-group" >
+        <label>Authors: {{selectedAuthors | json}}</label> <br>
+        <select style="width: 10rem;" (change)="selected($event.target.value)" [ngModel]="bookModel.authors" name="authors"  >
+            <option value="" disabled selected>Select author/s</option>
+            <option  *ngFor="let author of authorList" [value]="author.id" >{{author.name}}</option>
+        </select>
+      </div>
+      <br>
+      <button type="button" class="btn btn-secondary" routerLink="/books">Back</button>
+      <button style="margin-left: 20px" class="btn btn-primary" type="submit"> Add book</button>
+    </form>
+</div>
