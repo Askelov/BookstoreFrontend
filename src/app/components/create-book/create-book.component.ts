@@ -29,13 +29,24 @@ export class CreateBookComponent implements OnInit {
   }
 
   selected(selectedNumber: number){
-  
+    var auts="";
     this.bookModel.authors.push(selectedNumber);
-    
-  var auts="";
+    this.bookModel.authors.forEach((value, index) => {
+      auts=auts+this.findNameById(value);
+      if (index != this.bookModel.authors.length - 1) {
+        auts=auts+", ";
+      }
+      else {
+        auts=auts+".";
+      }
+    })
+
+
+  /*var auts="";
     for(var aid of this.bookModel.authors){
-        auts=auts+this.findNameById(aid)+" ";
+        auts=auts+this.findNameById(aid)+", ";
     }
+    auts=auts+"\\b.";*/
     this.selectedAuthors=auts;
 
 
